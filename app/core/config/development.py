@@ -1,4 +1,4 @@
-from config.base import BaseSettings
+from core.config.base import BaseSettings
 
 
 class DevSettings(BaseSettings):

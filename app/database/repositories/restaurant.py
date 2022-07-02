@@ -1,6 +1,8 @@
 from models.domain.restaurant import RestaurantInterface
+from database.repositories.base import BaseRepository
 
-class RestaurantRepository(RestaurantInterface):
+
+class RestaurantRepository(RestaurantInterface, BaseRepository):
 
     def create_product(self):
         ...

@@ -1,24 +1,30 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session 
-from loguru import logger
-from pydantic import BaseModel
+from sqlalchemy.orm import sessionmaker 
+from sqlalchemy_utils import create_database, database_exists
 
 from database.tables import Model
-
-class ConfigurationModel(BaseModel):
-  database_url: str
+from core.config import app as configuration
+from loguru import logger
 
 class Database:
   
-  def __init__(self, config: ConfigurationModel):
-    self.config = config
-    self.__create_tables()
+  def __init__(self, url: str = None):
+    self.url = url
   
   def __engine(self):
-    return create_engine(self.config.database_url)
+    engine = create_engine(self.url)
+
+    if not database_exists(engine.url):
+      create_database(engine.url)
+    
+    return engine
   
-  def __create_tables(self) -> None:
-    Model.metadata.create_all(bind=self.__engine)
+  def create_tables(self) -> None:
+    Model.metadata.create_all(bind=self.__engine())
     
   def session(self):
     return sessionmaker(bind=self.__engine())
+  
+
+settings = configuration.get_config()
+database = Database(url=settings.database_url)

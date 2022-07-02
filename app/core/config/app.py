@@ -1,7 +1,7 @@
 from os import environ
 from dotenv import load_dotenv
 
-from config.development import DevSettings 
+from core.config.development import DevSettings 
   
   
 def get_config():
