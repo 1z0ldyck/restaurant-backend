@@ -1,4 +1,3 @@
-from enum import Enum
 from os import environ
 from dotenv import load_dotenv
 
