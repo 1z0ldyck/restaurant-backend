@@ -3,8 +3,8 @@ from typing import Any, Dict
 from sqlalchemy.orm import declarative_base
 
 
-from app.database.app import Database
-from app.core.config.app import get_config
+from database.app import Database
+from core.config.app import get_config
   
 @pytest.fixture
 def settings():

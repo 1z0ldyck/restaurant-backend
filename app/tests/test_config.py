@@ -1,5 +1,5 @@
 import pytest
-from app.core.config.test import TestSettings
+from core.config.test import TestSettings
 
 def test_settings(settings):
   """ Test if the configuration is correct. """

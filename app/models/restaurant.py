@@ -1,11 +1,9 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, Float, Boolean
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 
-Model = declarative_base()
+from models import Model
 
-class RestaurantTables:
-  
-  class Restaurant(Model):
+class Restaurant(Model):
 
       __tablename__ = 'restaurants'
 
@@ -16,7 +14,7 @@ class RestaurantTables:
       weekend_time = relationship("WeekendTimeRestaurant")
 
 
-  class WeekdayTimeRestaurant(Model):
+class WeekdayTimeRestaurant(Model):
       __tablename__ = 'weekday_time_restaurant'
 
       id = Column(Integer, primary_key=True, nullable=False)
@@ -25,7 +23,7 @@ class RestaurantTables:
       restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
 
 
-  class WeekendTimeRestaurant(Model):
+class WeekendTimeRestaurant(Model):
       __tablename__ = 'weekend_time_restaurant'
 
       id = Column(Integer, primary_key=True, nullable=False)
@@ -34,14 +32,14 @@ class RestaurantTables:
       restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
 
 
-  class RestaurantProductCategory(Model):
+class RestaurantProductCategory(Model):
     __tablename__ = 'product_category_restaurant'
     
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(255), nullable=False)
 
 
-  class RestaurantProducts(Model):
+class RestaurantProducts(Model):
     __tablename__ = 'products_restaurant'
     
     id = Column(Integer, primary_key=True)
@@ -52,3 +50,6 @@ class RestaurantTables:
     is_promo = Column(Boolean, default=False)
     description_promo = Column(String(255), nullable=False)
     price_promo = Column(Float, nullable=False)
+
+
+tables = [Restaurant, WeekendTimeRestaurant, WeekdayTimeRestaurant, RestaurantProductCategory, RestaurantProducts]
